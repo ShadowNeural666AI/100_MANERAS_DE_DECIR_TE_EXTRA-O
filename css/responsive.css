@@ -1,0 +1,517 @@
+/* ==========================================================================
+   PROYECTO: EXPERIENCIA WEB ROMÁNTICA 3D - 100 MANERAS DE DECIR TE EXTRAÑO ❤️
+   responsive.css - Adaptación responsiva universal para TODO tipo de dispositivos
+   (Android, iPhone, iPad, Tablets, Laptops, Monitores 1080p, 2K, 4K)
+   Garantiza terminación con puntos suspensivos (...) sin romper el círculo
+   y que NINGÚN elemento jamás encime (solape) el círculo grande.
+   ========================================================================== */
+
+/* Regla Universal de Truncado: Si cualquier frase sobrepasa el contorno exterior,
+   termina estrictamente con puntos suspensivos (...) sin sobrepasar el círculo */
+.phrase-orbit-item .orbit-title,
+.phrase-orbit-item.typing-now .orbit-title,
+.phrase-orbit-item.active .orbit-title,
+.phrase-orbit-item.written .orbit-title,
+.phrase-orbit-item.encapsulated .orbit-title {
+  max-width: var(--orbit-text-max-width, 180px) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+/* ==========================================================================
+   1. PANTALLAS GRANDES Y MONITORES 1080p / 2K / 4K (> 1440px)
+   ========================================================================== */
+@media (min-width: 1441px) {
+  .experience-stage-wrapper {
+    max-width: 1600px;
+    padding: 40px clamp(30px, 4vw, 60px);
+    gap: clamp(30px, 3.5vw, 60px);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .romantic-scene-left {
+    width: 44%;
+    max-width: 550px;
+    height: 84vh;
+    max-height: 650px;
+  }
+
+  .neon-heart-arch-container {
+    width: 96%;
+    max-width: 510px;
+    height: 530px;
+  }
+
+  .universe-circle-stage {
+    width: min(84vh, 660px);
+    height: min(84vh, 660px);
+  }
+}
+
+/* ==========================================================================
+   2. LAPTOPS Y PANTALLAS MEDIANAS (1025px a 1440px)
+   ========================================================================== */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .experience-stage-wrapper {
+    padding: 30px clamp(20px, 3vw, 40px);
+    gap: clamp(20px, 3vw, 48px);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .romantic-scene-left {
+    width: 42%;
+    max-width: 480px;
+    height: 80vh;
+    max-height: 580px;
+  }
+
+  .neon-heart-arch-container {
+    width: 95%;
+    max-width: 460px;
+    height: 490px;
+  }
+
+  .universe-circle-stage {
+    width: min(82vh, 50vw, 580px);
+    height: min(82vh, 50vw, 580px);
+  }
+}
+
+/* ==========================================================================
+   3. TABLETS E IPADS (769px a 1024px)
+   ========================================================================== */
+/* iPad / Tablet en Modo Vertical (Portrait) */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+  .experience-stage-wrapper {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(56px + env(safe-area-inset-top, 0px)) 24px calc(20px + env(safe-area-inset-bottom, 0px)) 24px;
+    gap: 12px;
+    height: 100%;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .romantic-scene-left {
+    width: 100%;
+    max-width: 410px;
+    height: clamp(190px, 31vh, 270px);
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+
+  .neon-heart-arch-container {
+    max-width: 340px;
+    height: 100%;
+  }
+
+  .foreground-elements-group {
+    max-width: 290px;
+    height: 38%;
+  }
+
+  .scene-teddy-bear {
+    max-width: 96px;
+  }
+
+  .scene-roses-and-gifts {
+    max-width: 100px;
+  }
+
+  .universe-circle-stage {
+    width: min(88vw, 53vh, 500px);
+    height: min(88vw, 53vh, 500px);
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+
+  .bottom-scroll-guide {
+    position: relative;
+    margin-top: 8px;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    flex-shrink: 0;
+  }
+}
+
+/* iPad / Tablet en Modo Horizontal (Landscape) */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  .experience-stage-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 28px 16px;
+    gap: 28px;
+  }
+
+  .romantic-scene-left {
+    width: 42%;
+    max-width: 420px;
+    height: 80vh;
+    max-height: 540px;
+  }
+
+  .neon-heart-arch-container {
+    width: 95%;
+    max-width: 400px;
+    height: 450px;
+  }
+
+  .universe-circle-stage {
+    width: min(78vh, 48vw, 490px);
+    height: min(78vh, 48vw, 490px);
+  }
+}
+
+/* ==========================================================================
+   4. DISPOSITIVOS MÓVILES EN MODO RETRATO / VERTICAL (<= 768px: Android, iPhone)
+   ========================================================================== */
+@media (max-width: 768px) and (orientation: portrait) {
+  :root {
+    --orbit-font-size: 0.58rem;
+    --orbit-active-font-size: 0.65rem;
+  }
+
+  html, body {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    touch-action: pan-y;
+  }
+
+  /* Barra de Controles Superior en Móvil */
+  .top-controls-bar {
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    left: 12px;
+    right: 12px;
+    z-index: 60;
+  }
+
+  .brand-badge {
+    padding: 5px 10px;
+    gap: 6px;
+  }
+
+  .brand-icon {
+    font-size: 0.95rem;
+  }
+
+  .brand-title {
+    font-size: 0.70rem;
+    letter-spacing: 1px;
+  }
+
+  .btn-pill {
+    padding: 5px 10px;
+    font-size: 0.68rem;
+    gap: 5px;
+  }
+
+  /* Escenario Principal en Columna: Cero Encimamiento */
+  .experience-stage-wrapper {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(44px + env(safe-area-inset-top, 0px)) 12px calc(10px + env(safe-area-inset-bottom, 0px)) 12px;
+    height: 100%;
+    max-height: 100dvh;
+    overflow: hidden;
+    gap: 6px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  /* Escena de la Pareja Romántica: Centrada arriba, tamaño aumentado para el corazón y peluche/flores más cortas y pequeñas */
+  .romantic-scene-left {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    height: clamp(185px, 30vh, 250px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 auto;
+    flex-shrink: 0;
+  }
+
+  .neon-heart-arch-container {
+    width: 98%;
+    max-width: 320px;
+    height: 100%;
+    top: 0;
+  }
+
+  .foreground-elements-group {
+    width: 100%;
+    max-width: 240px;
+    height: 38%;
+    bottom: 0;
+  }
+
+  .realistic-ground-shadow {
+    width: 85%;
+    max-width: 200px;
+    height: 22px;
+    bottom: 0;
+  }
+
+  .scene-teddy-bear {
+    max-width: 84px;
+    left: 44%;
+    transform: translateX(-65%);
+  }
+
+  .scene-roses-and-gifts {
+    max-width: 88px;
+    left: 54%;
+    transform: translateX(-35%);
+  }
+
+  .floating-crystal-heart-decor {
+    width: 40px;
+    height: 40px;
+    top: 2%;
+    right: 4%;
+  }
+
+  /* Universo Circular de las 100 frases: Dimensionado para quedar perfectamente libre */
+  .universe-circle-stage {
+    width: min(92vw, 49vh, 410px);
+    height: min(92vw, 49vh, 410px);
+    margin: 0 auto;
+    flex-shrink: 0;
+  }
+
+  .orbital-svg-rings {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Santuario Central Pequeño */
+  .center-sanctuary-circle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+    transform: none;
+    width: 37% !important;
+    height: 37% !important;
+    max-width: 140px;
+    max-height: 140px;
+    aspect-ratio: 1 / 1;
+    padding: 8px 6px;
+    gap: 2px;
+  }
+
+  .center-beating-heart {
+    font-size: clamp(0.95rem, 3.2vw, 1.25rem);
+  }
+
+  .central-main-title {
+    font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+    letter-spacing: 1.5px;
+  }
+
+  .central-ways-subhead {
+    font-size: clamp(0.48rem, 1.7vw, 0.58rem);
+    letter-spacing: 1px;
+  }
+
+  .central-phrase-continuation {
+    font-size: clamp(0.60rem, 2.1vw, 0.74rem);
+    line-height: 1.28;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .central-quote-counter {
+    font-size: clamp(0.66rem, 2.2vw, 0.78rem);
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  .phrase-orbit-item {
+    gap: 2px;
+    padding: 1px 3px 1px 2px;
+  }
+
+  .phrase-orbit-item .orbit-num {
+    font-size: 0.46rem;
+  }
+
+  .phrase-orbit-item .orbit-glow-bullet {
+    width: 3px;
+    height: 3px;
+  }
+
+  .phrase-orbit-item.typing-now .orbit-glow-bullet,
+  .phrase-orbit-item.active .orbit-glow-bullet {
+    width: 4.5px;
+    height: 4.5px;
+  }
+
+  /* Guía inferior colocada de forma limpia debajo del círculo sin encimarlo */
+  .bottom-scroll-guide {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin-top: 2px;
+    flex-shrink: 0;
+    gap: 4px;
+    z-index: 20;
+  }
+
+  .mouse-indicator-icon {
+    width: 16px;
+    height: 24px;
+  }
+
+  .scroll-guide-label {
+    font-size: 0.60rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* ==========================================================================
+   5. MÓVILES COMPACTOS (<= 390px de ancho: iPhone SE, Galaxy A, etc.)
+   ========================================================================== */
+@media (max-width: 390px) and (orientation: portrait) {
+  :root {
+    --orbit-font-size: 0.52rem;
+    --orbit-active-font-size: 0.58rem;
+  }
+
+  .top-controls-bar {
+    top: 6px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .brand-badge {
+    padding: 4px 8px;
+  }
+
+  .brand-title {
+    font-size: 0.64rem;
+  }
+
+  .btn-pill {
+    padding: 4px 8px;
+    font-size: 0.64rem;
+  }
+
+  .romantic-scene-left {
+    height: clamp(165px, 28vh, 220px);
+    max-width: 330px;
+  }
+
+  .neon-heart-arch-container {
+    max-width: 285px;
+  }
+
+  .foreground-elements-group {
+    max-width: 210px;
+    height: 36%;
+  }
+
+  .scene-teddy-bear {
+    max-width: 74px;
+  }
+
+  .scene-roses-and-gifts {
+    max-width: 78px;
+  }
+
+  .universe-circle-stage {
+    width: min(90vw, 45vh, 340px);
+    height: min(90vw, 45vh, 340px);
+  }
+
+  .phrase-orbit-item .orbit-num {
+    font-size: 0.42rem;
+  }
+
+  .center-sanctuary-circle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+    transform: none;
+    padding: 6px 4px;
+  }
+
+  .central-phrase-continuation {
+    font-size: clamp(0.56rem, 2vw, 0.68rem);
+    line-height: 1.22;
+  }
+
+  .central-quote-counter {
+    font-size: 0.64rem;
+    margin-top: 3px;
+  }
+}
+
+/* ==========================================================================
+   6. PANTALLAS CON ALTURA REDUCIDA O MÓVILES EN MODO HORIZONTAL (height <= 540px)
+   ========================================================================== */
+@media (max-height: 540px) {
+  .experience-stage-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 20px 8px 20px;
+    gap: clamp(12px, 3vw, 24px);
+    height: 100%;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .romantic-scene-left {
+    width: 42%;
+    height: 86vh;
+    max-width: 280px;
+    margin: 0;
+  }
+
+  .neon-heart-arch-container {
+    max-width: 245px;
+    height: 100%;
+  }
+
+  .foreground-elements-group {
+    max-width: 210px;
+    height: 46%;
+  }
+
+  .universe-circle-stage {
+    width: min(78vh, 44vw);
+    height: min(78vh, 44vw);
+    margin: 0;
+  }
+
+  .top-controls-bar {
+    top: 6px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .bottom-scroll-guide {
+    display: none !important;
+  }
+}

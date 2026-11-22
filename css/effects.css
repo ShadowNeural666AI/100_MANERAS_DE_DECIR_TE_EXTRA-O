@@ -1,0 +1,66 @@
+/* ==========================================================================
+   PROYECTO: EXPERIENCIA WEB ROMÁNTICA 3D - 100 MANERAS DE DECIR TE EXTRAÑO ❤️
+   effects.css - Resplandores y micro-interacciones (limpio, sin efectos de luces en el contenedor grande)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. RESPLANDORES NEÓN, PULSOS Y MICRO-INTERACCIONES
+   ========================================================================== */
+.glow-pink {
+  filter: drop-shadow(0 0 10px #ff2a7a) drop-shadow(0 0 25px rgba(255, 42, 122, 0.6));
+}
+
+.glow-purple {
+  filter: drop-shadow(0 0 10px #a855f7) drop-shadow(0 0 25px rgba(168, 85, 247, 0.6));
+}
+
+.glow-gold {
+  filter: drop-shadow(0 0 8px #ffd166) drop-shadow(0 0 18px rgba(255, 209, 102, 0.5));
+}
+
+.central-main-title {
+  animation: titleBreathing 4s ease-in-out infinite alternate;
+}
+
+@keyframes titleBreathing {
+  0% {
+    text-shadow: 0 0 12px rgba(255, 42, 122, 0.7), 0 0 25px rgba(255, 117, 140, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(255, 42, 122, 0.95), 0 0 35px rgba(255, 117, 140, 0.6), 0 0 50px rgba(168, 85, 247, 0.4);
+  }
+}
+
+/* ==========================================================================
+   2. ELIMINACIÓN TOTAL Y RIGUROSA DE EFECTOS DE LUCES EN ESQUINAS Y CONTENEDOR GRANDE
+   ========================================================================== */
+.corner-disco-lights-container,
+.disco-corner,
+.disco-lens-flare,
+.disco-light-beam,
+.beam-tl-primary,
+.beam-tl-secondary,
+.beam-tr-primary,
+.beam-tr-secondary,
+.beam-bl-primary,
+.beam-br-primary,
+.flare-pink,
+.flare-purple,
+.flare-cyan-rose,
+.flare-gold,
+.radial-beam-ray,
+.outer-sparkle-star,
+#outer-circle-sparkles-group,
+#outer-circle-flash,
+#outer-circle-draw-point,
+#outer-circle-halo,
+#outer-circle-corona,
+#outer-circle-inner-ring,
+.club-smoke-layer,
+.floating-messages-container,
+.purple-particles-aura {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

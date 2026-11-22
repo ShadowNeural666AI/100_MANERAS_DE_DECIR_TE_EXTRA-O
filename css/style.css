@@ -1,0 +1,1524 @@
+/* ==========================================================================
+   PROYECTO: EXPERIENCIA WEB ROMÁNTICA 3D - 100 MANERAS DE DECIR TE EXTRAÑO ❤️
+   style.css - Arquitectura base, tipografía, composición espacial y componentes
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600;1,700&family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+:root {
+  --color-bg-dark: #07030e;
+  --color-violet-deep: #16072b;
+  --color-magenta-glow: #ff2a7a;
+  --color-pink-soft: #ff758c;
+  --color-purple-neon: #a855f7;
+  --color-gold-warm: #ffd166;
+  --color-text-white: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.72);
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cinzel', serif;
+  --font-script: 'Dancing Script', cursive;
+  --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --glass-bg: rgba(20, 8, 35, 0.65);
+  --glass-border: rgba(255, 42, 122, 0.35);
+  --neon-shadow: 0 0 20px rgba(255, 42, 122, 0.6), 0 0 40px rgba(168, 85, 247, 0.3);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-bg-dark);
+  font-family: var(--font-sans);
+  color: var(--color-text-white);
+  user-select: none;
+}
+
+/* Espaciador de scroll para sincronización con GSAP ScrollTrigger */
+.virtual-scroll-spacer {
+  display: none !important;
+}
+
+/* Contenedor principal de la experiencia (Fijado en viewport cinemático) */
+#app-viewport {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   FONDO CÓSMICO Y AMBIENTAL
+   ========================================================================== */
+.cosmic-background-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cosmic-nebula-image {
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  opacity: 0.88;
+  filter: contrast(1.15) brightness(0.95);
+  animation: cosmicDrift 45s ease-in-out infinite alternate;
+}
+
+@keyframes cosmicDrift {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.04) translate(-1%, 1%);
+  }
+
+  100% {
+    transform: scale(1.02) translate(1%, -1%);
+  }
+}
+
+/* Canvas interactivo de partículas, estrellas y corazones */
+#ambient-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Piso reflectante tipo espejo lacado oscuro (sin línea divisoria en la parte inferior) */
+.reflective-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(15, 3, 25, 0.95) 0%, rgba(25, 6, 40, 0.6) 50%, transparent 100%);
+  border-top: none;
+  box-shadow: none;
+}
+
+.reflective-floor::after {
+  display: none !important;
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR DE CONTROLES
+   ========================================================================== */
+.top-controls-bar {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  pointer-events: auto;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  padding: 8px 18px;
+  border-radius: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.brand-icon {
+  font-size: 1.25rem;
+  animation: pulseIcon 1.8s infinite;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 42, 122, 0.6);
+}
+
+.controls-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.btn-pill:hover {
+  background: rgba(255, 42, 122, 0.25);
+  border-color: var(--color-magenta-glow);
+  box-shadow: 0 0 20px rgba(255, 42, 122, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-pill.active {
+  background: rgba(255, 42, 122, 0.4);
+  border-color: #ff758c;
+  box-shadow: 0 0 25px rgba(255, 42, 122, 0.8);
+}
+
+.btn-pill .icon {
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   ESCENA PRINCIPAL: COMPOSICIÓN CINEMATOGRÁFICA
+   ========================================================================== */
+.experience-stage-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1650px;
+  height: 100%;
+  max-height: 980px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 64px);
+  padding: 40px clamp(24px, 4vw, 60px);
+  z-index: 10;
+}
+
+/* ==========================================================================
+   LADO IZQUIERDO: PAREJA, OSO, ROSAS Y ARCO NEÓN
+   ========================================================================== */
+.romantic-scene-left {
+  position: relative;
+  width: 44%;
+  max-width: 550px;
+  height: 85%;
+  max-height: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  pointer-events: none;
+  transition: transform 0.15s ease-out;
+  flex-shrink: 0;
+}
+
+/* Arco de Corazón Neón Luminoso con Pareja Encapsulada */
+.neon-heart-arch-container {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  max-width: 500px;
+  height: 520px;
+  z-index: 1;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.neon-heart-arch-container svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 15px rgba(255, 42, 122, 0.8)) drop-shadow(0 0 35px rgba(168, 85, 247, 0.6));
+  transition: filter 0.35s ease;
+}
+
+.neon-heart-arch-container:hover svg {
+  filter: drop-shadow(0 0 25px rgba(255, 42, 122, 0.95)) drop-shadow(0 0 50px rgba(255, 117, 140, 0.8)) drop-shadow(0 0 80px rgba(168, 85, 247, 0.7));
+}
+
+.neon-heart-arch {
+  fill: none;
+  stroke: url(#neonHeartGrad);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 0;
+  animation: neonFlicker 4s infinite alternate;
+}
+
+.neon-heart-arch-inner {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.9);
+  stroke-width: 2;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 0;
+}
+
+@keyframes neonFlicker {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  45% {
+    opacity: 0.95;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 0.92;
+  }
+}
+
+/* Contenedor del corazón con la imagen de la pareja encapsulada por clipPath */
+#couple-heart-container {
+  transform-origin: 250px 250px;
+  transition: filter 0.35s ease;
+}
+
+#couple-heart-container:hover {
+  filter: drop-shadow(0 0 20px rgba(255, 42, 122, 0.8));
+}
+
+#heart-shine-ray {
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Objetos en primer plano: Oso de peluche, Rosas, Regalos y Vela amontonados en el centro */
+.foreground-elements-group {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 48%;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0 auto;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Sombra de contacto en el suelo deshabilitada a petición del usuario para quitar todo sombreado */
+.realistic-ground-shadow {
+  display: none !important;
+}
+
+/* Rosas y Regalos: ubicados en el centro-derecha solapándose (sin sombreado) */
+.scene-roses-and-gifts {
+  position: absolute;
+  left: 54%;
+  transform: translateX(-35%);
+  bottom: 6px;
+  width: 58%;
+  max-width: 250px;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: none;
+  mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 75%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 90% at 50% 50%, black 75%, transparent 100%);
+  z-index: 3;
+  animation: gentleRosesSway 5.5s ease-in-out infinite alternate;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+/* Tierno Oso de Peluche: ubicado en el centro-izquierda, abrazando y solapándose delante (sin sombreado) */
+.scene-teddy-bear {
+  position: absolute;
+  left: 44%;
+  transform: translateX(-65%);
+  bottom: 0px;
+  width: 56%;
+  max-width: 240px;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: none;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 75%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 75%, transparent 100%);
+  z-index: 4;
+  animation: gentleTeddyBreathe 4.8s ease-in-out infinite alternate;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+/* Efecto realista de respiración suave y vida */
+@keyframes gentleTeddyBreathe {
+  0% {
+    transform: translateX(-65%) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-65%) scale(1.025) translateY(-5px) rotate(-0.8deg);
+  }
+  100% {
+    transform: translateX(-65%) scale(1.01) translateY(-2px) rotate(0.5deg);
+  }
+}
+
+@keyframes gentleRosesSway {
+  0% {
+    transform: translateX(-35%) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-35%) scale(1.02) translateY(-4px) rotate(0.8deg);
+  }
+  100% {
+    transform: translateX(-35%) scale(1.005) translateY(-1px) rotate(-0.4deg);
+  }
+}
+
+/* Efecto interactivo al pasar el mouse por el grupo de flores y peluche (sin sombreado) */
+.foreground-elements-group:hover .scene-teddy-bear {
+  filter: none;
+}
+
+.foreground-elements-group:hover .scene-roses-and-gifts {
+  filter: none;
+}
+
+/* Corazón de cristal flotante decorativo */
+.floating-crystal-heart-decor {
+  position: absolute;
+  top: 15%;
+  right: -5%;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 20px #ff2a7a);
+  animation: crystalDrift 7s ease-in-out infinite alternate;
+  z-index: 6;
+}
+
+@keyframes crystalDrift {
+  0% {
+    transform: translateY(0) rotate(-5deg) scale(0.95);
+  }
+
+  50% {
+    transform: translateY(-16px) rotate(4deg) scale(1.05);
+  }
+
+  100% {
+    transform: translateY(-5px) rotate(-2deg) scale(1);
+  }
+}
+
+/* ==========================================================================
+   LADO DERECHO: EL UNIVERSO CIRCULAR Y DIAL DE LAS 100 FRASES
+   ========================================================================== */
+.universe-circle-stage {
+  position: relative;
+  width: min(52vw, 84vh, 680px);
+  height: min(52vw, 84vh, 680px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: grab;
+  margin: 0;
+  flex-shrink: 0;
+  max-width: 100%;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+}
+
+.universe-circle-stage:active {
+  cursor: grabbing;
+}
+
+/* SVG Orbital de Anillos Geométricos (Ajustado al 100% del contenedor para evitar cualquier desborde o encimado) */
+.orbital-svg-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+  filter: none;
+}
+
+/* Círculo Exterior Dinámico (R=345 ampliado, perímetro ~2168px) - Oculto hasta terminar las 100 frases */
+#outer-circle-draw-path {
+  stroke-dasharray: 2180;
+  stroke-dashoffset: 2180;
+  filter: drop-shadow(0 0 14px rgba(255, 42, 122, 0.95)) drop-shadow(0 0 28px rgba(168, 85, 247, 0.8));
+  will-change: stroke-dashoffset;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Efectos de destellos, halo, corona y cometas eliminados por completo a petición del usuario */
+#outer-circle-halo,
+#outer-circle-draw-point,
+#outer-circle-flash,
+#outer-circle-inner-ring,
+#outer-circle-corona,
+#outer-circle-sparkles-group,
+.outer-sparkle-star {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Efecto al encapsular: Círculo limpio sin borde oscuro ambiental a petición del usuario */
+body.encapsulated-active .app-main-canvas {
+  filter: none;
+}
+
+body.encapsulated-active .universe-circle-stage::before {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#outer-circle-disc-backdrop {
+  stroke: none !important;
+  stroke-width: 0 !important;
+  outline: none !important;
+}
+
+.svg-orbital-arc-glowing {
+  fill: none;
+  stroke: url(#outerOrbitGrad);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px #ff2a7a);
+}
+
+.svg-orbital-arc-dashed {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1.5;
+  stroke-dasharray: 4, 8;
+  animation: spinClockwise 120s linear infinite;
+  transform-origin: center;
+}
+
+.svg-orbital-arc-ticks {
+  fill: none;
+  stroke: rgba(255, 42, 122, 0.45);
+  stroke-width: 1;
+  stroke-dasharray: 2, 6;
+}
+
+@keyframes spinClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Texto Curvo Superior en SVG: "100 MANERAS DE DECIR TE EXTRAÑO" */
+.svg-curved-title-text {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  fill: #ffffff;
+  filter: drop-shadow(0 0 10px rgba(255, 42, 122, 0.9)) drop-shadow(0 0 25px rgba(255, 117, 140, 0.6));
+}
+
+/* Track contenedor giratorio de las 100 frases */
+#orbital-phrases-track {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 25;
+  pointer-events: none;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+/* Elemento individual en la órbita (Línea de frase) - Pegado al círculo pequeño, sin recorte de texto */
+.phrase-orbit-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 6px 1px 2px;
+  border-radius: 12px;
+  white-space: nowrap;
+  pointer-events: auto;
+  cursor: pointer;
+  transform-origin: 0 0;
+  font-family: var(--font-sans);
+  color: #ffd8a8;
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.75), 0 0 12px rgba(255, 209, 102, 0.4);
+  transition: opacity 0.3s ease, filter 0.3s ease, background 0.3s ease;
+  will-change: transform, opacity;
+  opacity: 0;
+  visibility: hidden;
+  max-width: none;
+  overflow: visible;
+}
+
+.phrase-orbit-item:hover {
+  opacity: 1 !important;
+  color: #fff4cc;
+  filter: drop-shadow(0 0 10px #c084fc);
+}
+
+.phrase-orbit-item .orbit-glow-bullet,
+.phrase-orbit-item .orbit-tick {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #c084fc;
+  box-shadow: 0 0 6px #a855f7, 0 0 12px #9333ea;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.phrase-orbit-item .orbit-title {
+  font-family: var(--font-sans);
+  font-size: var(--orbit-font-size, 0.68rem);
+  letter-spacing: 0.2px;
+  font-weight: 500;
+  color: #ffd8a8;
+  text-shadow: 0 0 6px rgba(168, 85, 247, 0.75), 0 0 12px rgba(255, 209, 102, 0.4);
+  transition: color 0.25s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: var(--orbit-text-max-width, 210px);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Frase que se está escribiendo actualmente letra por letra / palabra por palabra (sin número) */
+.phrase-orbit-item.typing-now,
+.phrase-orbit-item.active {
+  z-index: 35 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: rgba(168, 85, 247, 0.28);
+  border: 1px solid rgba(192, 132, 252, 0.95);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.85), 0 0 35px rgba(255, 209, 102, 0.5);
+  border-radius: 14px;
+  padding: 1px 8px 1px 4px;
+}
+
+.phrase-orbit-item.typing-now .orbit-glow-bullet,
+.phrase-orbit-item.active .orbit-glow-bullet {
+  width: 6px;
+  height: 6px;
+  background: #ffd166;
+  box-shadow: 0 0 8px #ffd166, 0 0 16px #c084fc;
+}
+
+.phrase-orbit-item.typing-now .orbit-title,
+.phrase-orbit-item.active .orbit-title {
+  color: #ffd166;
+  font-size: var(--orbit-active-font-size, 0.76rem);
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95), 0 0 10px #ffd166, 0 0 20px #c084fc;
+  max-width: var(--orbit-text-max-width, 210px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Frase que ya se ha escrito y SE QUEDA AHÍ permanente en el círculo sin sobrepasar el contorno */
+.phrase-orbit-item.written {
+  opacity: 0.95 !important;
+  visibility: visible !important;
+  color: #ffd166;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 6px rgba(255, 209, 102, 0.75), 0 0 12px rgba(168, 85, 247, 0.5);
+}
+
+.phrase-orbit-item.written .orbit-title {
+  color: #ffd166;
+  font-size: var(--orbit-font-size, 0.68rem);
+  max-width: var(--orbit-text-max-width, 210px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 6px rgba(255, 209, 102, 0.75), 0 0 12px rgba(168, 85, 247, 0.5);
+}
+
+.phrase-orbit-item.written .orbit-glow-bullet {
+  background: #ffd166;
+  box-shadow: 0 0 6px #ffd166, 0 0 10px #a855f7;
+}
+
+.phrase-orbit-item.near-active {
+  opacity: 0.95;
+}
+
+.phrase-orbit-item.near-active .orbit-title {
+  color: #ffd166;
+}
+
+/* ==========================================================================
+   ANIMACIONES Y DESTELLOS DE LAS FRASES AL COMPLETAR EL ENCAPSULAMIENTO
+   (Color dorado cálido de alto contraste, legible y distinguible contra el fondo del círculo, SIN brillo blanco)
+   ========================================================================== */
+.phrase-orbit-item.encapsulated {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 26;
+}
+
+.phrase-orbit-item.encapsulated .orbit-title {
+  color: #ffd166 !important;
+  font-weight: 600;
+  max-width: var(--orbit-text-max-width, 210px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.95),
+    0 0 6px rgba(255, 209, 102, 0.8),
+    0 0 14px rgba(255, 42, 122, 0.5) !important;
+  animation: phraseDestelloGleam 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes phraseDestelloGleam {
+  0% {
+    opacity: 0.84;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.92;
+  }
+}
+
+.phrase-orbit-item.encapsulated .orbit-glow-bullet {
+  background: #ffd166 !important;
+  box-shadow:
+    0 0 6px #ffd166,
+    0 0 14px #ff2a7a,
+    0 0 20px #a855f7 !important;
+  animation: bulletSparkleBurst 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes bulletSparkleBurst {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.82;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 0.9;
+  }
+}
+
+/* ==========================================================================
+   SANTUARIO CENTRAL: CÍRCULO ÚNICO CENTRAL CON MENSAJE, LATIDO Y CONTADOR
+   (Único círculo pequeño en toda la escena)
+   ========================================================================== */
+.center-sanctuary-circle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transform: none;
+  width: 270px;
+  height: 270px;
+  max-width: 38%;
+  max-height: 38%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, rgba(45, 8, 60, 0.95) 0%, rgba(18, 4, 28, 0.97) 72%, rgba(6, 1, 12, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 42, 122, 0.9);
+  box-shadow:
+    0 0 25px rgba(255, 42, 122, 0.7),
+    0 0 55px rgba(168, 85, 247, 0.35),
+    inset 0 0 25px rgba(255, 42, 122, 0.3),
+    inset 0 0 60px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 14px;
+  text-align: center;
+  z-index: 8;
+  pointer-events: auto;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* Cursor de efecto máquina de escribir por teclado */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #ff2a7a;
+  margin-left: 2px;
+  vertical-align: middle;
+  box-shadow: 0 0 8px #ff2a7a, 0 0 15px #ffffff;
+  animation: cursorBlink 0.7s infinite alternate;
+}
+
+@keyframes cursorBlink {
+  0% {
+    opacity: 0.15;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Corazón superior con latido */
+.center-beating-heart-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.wing-flourish {
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 42, 122, 0.8));
+}
+
+.wing-flourish.right {
+  background: linear-gradient(90deg, rgba(255, 42, 122, 0.8), transparent);
+}
+
+.center-beating-heart {
+  font-size: 1.55rem;
+  color: #ff2a7a;
+  display: inline-block;
+  filter: drop-shadow(0 0 14px #ff2a7a) drop-shadow(0 0 25px rgba(255, 117, 140, 0.8));
+  cursor: pointer;
+  transform-origin: center;
+}
+
+/* Elementos Centrales (Composición de 5 Elementos) */
+.center-sanctuary-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 3px;
+}
+
+.central-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 1. Corazón superior con latido */
+.central-item-heart {
+  margin-bottom: 2px;
+}
+
+/* 2. Título Central: I MISS YOU (Se borra y oculta al comenzar las frases - Tamaño reducido elegante) */
+.central-main-title {
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.1;
+  text-shadow: 0 0 15px rgba(255, 42, 122, 0.8), 0 0 30px rgba(255, 117, 140, 0.4);
+  transition: opacity 0.3s ease, height 0.3s ease, margin 0.3s ease;
+}
+
+/* 3. Subtítulo: 100 WAYS TO SAY IT (Se borra y oculta al comenzar las frases - Tamaño reducido elegante) */
+.central-ways-subhead {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--color-pink-soft);
+  margin-top: 2px;
+  margin-bottom: 5px;
+  text-shadow: 0 0 8px rgba(255, 42, 122, 0.6);
+  transition: opacity 0.3s ease, height 0.3s ease, margin 0.3s ease;
+}
+
+.central-main-title.hidden-during-phrases,
+.central-ways-subhead.hidden-during-phrases,
+.central-item-heart.hidden-during-phrases {
+  display: none !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+/* 4. Contenedor de la 2ª parte de cada mensaje encapsulado en el centro */
+.central-phrase-quote,
+.central-poem-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 0.84rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  color: #ffffff;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 12px rgba(255, 209, 102, 0.5);
+  width: 100%;
+}
+
+/* Título de la frase en el santuario central */
+.central-phrase-title {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #d8b4fe;
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.9);
+  margin-top: 3px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Segunda parte: el mensaje directo y sincero encapsulado en el centro - Cálido dorado champán */
+.central-phrase-continuation {
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: 0.6px;
+  color: #ffe6a7;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 2px 10px rgba(0, 0, 0, 0.9);
+  max-width: 215px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+/* 5. Contador: 01 / 100 (Color dorado celestial sin contenedor rectangular) */
+.central-quote-counter {
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 2.8px;
+  color: #ffd166;
+  text-shadow: 0 0 10px rgba(255, 209, 102, 0.95), 0 0 22px rgba(255, 107, 107, 0.7);
+  margin-top: 10px;
+  position: relative;
+  z-index: 5;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: inline-block;
+  animation: counterGoldenGlow 2.8s ease-in-out infinite alternate;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+@keyframes counterGoldenGlow {
+  0% {
+    text-shadow: 0 0 8px rgba(255, 209, 102, 0.75);
+    transform: scale(1);
+  }
+
+  50% {
+    text-shadow: 0 0 16px rgba(255, 230, 130, 1), 0 0 28px rgba(255, 107, 107, 0.75);
+    transform: scale(1.03);
+  }
+
+  100% {
+    text-shadow: 0 0 8px rgba(255, 209, 102, 0.75);
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   RAYOS LUMINOSOS Y DESTELLOS ELIMINADOS POR COMPLETO
+   ========================================================================== */
+.radial-beam-ray,
+.radial-beam-ray::after,
+.radial-beam-ray::before {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ==========================================================================
+   GUÍA INFERIOR DE SCROLL
+   ========================================================================== */
+.bottom-scroll-guide {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 50;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.25s ease;
+}
+
+.bottom-scroll-guide:hover {
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.mouse-indicator-icon {
+  width: 22px;
+  height: 34px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  position: relative;
+  box-shadow: 0 0 12px rgba(255, 42, 122, 0.5);
+}
+
+.mouse-wheel-dot {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 4px;
+  height: 6px;
+  background: var(--color-magenta-glow);
+  border-radius: 3px;
+  transform: translateX(-50%);
+  animation: mouseWheelMove 1.6s ease-in-out infinite;
+}
+
+@keyframes mouseWheelMove {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translate(-50%, 12px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+}
+
+.scroll-guide-label {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 8px rgba(255, 42, 122, 0.6);
+}
+
+.scroll-guide-chevron {
+  font-size: 0.85rem;
+  color: var(--color-magenta-glow);
+  animation: chevronBounce 1.4s ease-in-out infinite;
+}
+
+@keyframes chevronBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+/* Barra de progreso deshabilitada para mantener la parte inferior completamente limpia */
+.experience-progress-bar {
+  display: none !important;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 1%;
+  background: linear-gradient(90deg, #a855f7, #ff2a7a, #ffd166);
+  box-shadow: 0 0 12px #ff2a7a;
+  transition: width 0.3s ease-out;
+}
+
+/* ==========================================================================
+   ESCENA CLÍMAX FINAL (MOMENTO 5)
+   ========================================================================== */
+#climax-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background: radial-gradient(circle at center, rgba(35, 8, 50, 0.94) 0%, rgba(10, 2, 16, 0.98) 100%);
+  backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#climax-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.climax-content {
+  max-width: 850px;
+  text-align: center;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.climax-heart-badge {
+  font-size: 3.5rem;
+  color: #ff2a7a;
+  filter: drop-shadow(0 0 25px #ff2a7a);
+  animation: pulseIcon 1.5s infinite;
+}
+
+.climax-subhead {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-pink-soft);
+  text-shadow: 0 0 12px rgba(255, 42, 122, 0.6);
+}
+
+.climax-quote {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 42, 122, 0.7), 0 0 40px rgba(255, 255, 255, 0.3);
+}
+
+.btn-restart-experience {
+  margin-top: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ff2a7a, #a855f7);
+  color: #fff;
+  border: none;
+  padding: 16px 36px;
+  border-radius: 50px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(255, 42, 122, 0.7), 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.btn-restart-experience:hover {
+  transform: scale(1.06) translateY(-3px);
+  box-shadow: 0 0 50px rgba(255, 42, 122, 1), 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes pulseIcon {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* ==========================================================================
+   ADAPTABILIDAD RESPONSIVE INTEGRAL (ANDROID, IPHONE, TABLETS Y DESKTOP)
+   ========================================================================== */
+
+/* 1. TABLETS Y PANTALLAS MEDIANAS (<= 1024px) */
+@media (max-width: 1024px) {
+  .experience-stage-wrapper {
+    padding: 35px 24px;
+    gap: 20px;
+  }
+
+  .romantic-scene-left {
+    width: 42%;
+    height: 80%;
+  }
+
+  .universe-circle-stage {
+    width: min(90vw, 82vh, 660px);
+    height: min(90vw, 82vh, 660px);
+  }
+}
+
+/* 2. MÓVILES EN MODO RETRATO / VERTICAL (ANDROID, IPHONE: <= 860px) */
+@media (max-width: 860px) {
+  :root {
+    --orbit-font-size: 0.60rem;
+    --orbit-active-font-size: 0.68rem;
+  }
+
+  body, html {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+  }
+
+  .top-controls-bar {
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    left: 12px;
+    right: 12px;
+  }
+
+  .brand-badge {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+
+  .brand-icon {
+    font-size: 1rem;
+  }
+
+  .brand-title {
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+  }
+
+  .btn-pill {
+    padding: 6px 12px;
+    font-size: 0.70rem;
+    gap: 6px;
+  }
+
+  .experience-stage-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: calc(48px + env(safe-area-inset-top, 0px)) 10px calc(24px + env(safe-area-inset-bottom, 0px)) 10px;
+    height: 100%;
+    max-height: 100dvh;
+    overflow: hidden;
+    gap: 4px;
+  }
+
+  /* Escena de la Pareja Romántica: perfectamente centrada arriba con escala aumentada y peluche/flores más pequeñas */
+  .romantic-scene-left {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    height: clamp(185px, 30vh, 250px);
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 auto;
+    flex-shrink: 0;
+  }
+
+  .neon-heart-arch-container {
+    width: 98%;
+    max-width: 320px;
+    height: 100%;
+    top: 0;
+  }
+
+  .couple-frame {
+    width: 80%;
+    max-width: 210px;
+    height: 65%;
+    top: 5%;
+  }
+
+  .foreground-elements-group {
+    height: 38%;
+    max-width: 250px;
+  }
+
+  .scene-teddy-bear {
+    max-width: 84px;
+  }
+
+  .scene-roses-and-gifts {
+    max-width: 88px;
+  }
+
+  .floating-crystal-heart-decor {
+    width: 50px;
+    height: 50px;
+    top: 5%;
+    right: 0%;
+  }
+
+  /* Universo Circular de las 100 frases: centrado impecable ocupando el espacio óptimo */
+  .universe-circle-stage {
+    width: min(96vw, 60vh, 500px);
+    height: min(96vw, 60vh, 500px);
+    margin: 0 auto;
+    flex-shrink: 0;
+  }
+
+  /* Círculo central ajustado con proporciones fluidas */
+  .center-sanctuary-circle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+    transform: none;
+    padding: 10px 8px;
+    gap: 3px;
+  }
+
+  .center-beating-heart {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+  }
+
+  .central-main-title {
+    font-size: clamp(1.05rem, 3.6vw, 1.45rem);
+    letter-spacing: 2px;
+  }
+
+  .central-ways-subhead {
+    font-size: clamp(0.58rem, 2.2vw, 0.72rem);
+    letter-spacing: 1.5px;
+  }
+
+  .central-phrase-continuation {
+    font-size: clamp(0.70rem, 2.5vw, 0.88rem);
+    line-height: 1.35;
+    max-width: 90%;
+  }
+
+  .central-quote-counter {
+    font-size: clamp(0.76rem, 2.7vw, 0.92rem);
+    letter-spacing: 2.5px;
+    margin-top: 8px;
+  }
+
+  .phrase-orbit-item {
+    gap: 3px;
+    padding: 1px 4px 1px 2px;
+  }
+
+  .phrase-orbit-item .orbit-glow-bullet {
+    width: 3.5px;
+    height: 3.5px;
+  }
+
+  .phrase-orbit-item.typing-now .orbit-glow-bullet,
+  .phrase-orbit-item.active .orbit-glow-bullet {
+    width: 5px;
+    height: 5px;
+  }
+
+  .bottom-scroll-guide {
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%) scale(0.85);
+  }
+
+  .mouse-indicator-icon {
+    width: 18px;
+    height: 28px;
+  }
+
+  .scroll-guide-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* 3. MÓVILES PEQUEÑOS / COMPACTOS (<= 400px: iPhone SE, Galaxy A, etc.) */
+@media (max-width: 400px) {
+  :root {
+    --orbit-font-size: 0.54rem;
+    --orbit-active-font-size: 0.62rem;
+  }
+
+  .top-controls-bar {
+    top: 6px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .brand-badge {
+    padding: 4px 8px;
+  }
+
+  .brand-title {
+    font-size: 0.64rem;
+  }
+
+  .btn-pill {
+    padding: 5px 8px;
+    font-size: 0.64rem;
+  }
+
+  .romantic-scene-left {
+    height: clamp(165px, 28vh, 220px);
+    min-height: 140px;
+    max-width: 320px;
+  }
+
+  .universe-circle-stage {
+    width: min(96vw, 53vh, 350px);
+    height: min(96vw, 53vh, 350px);
+  }
+
+  .center-sanctuary-circle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+    transform: none;
+    padding: 8px 6px;
+  }
+
+  .central-phrase-continuation {
+    font-size: clamp(0.64rem, 2.6vw, 0.80rem);
+    line-height: 1.28;
+  }
+
+  .central-quote-counter {
+    font-size: 0.74rem;
+    margin-top: 5px;
+  }
+}
+
+/* 4. MÓVILES EN MODO HORIZONTAL / LANDSCAPE (<= 560px de alto) */
+@media (max-height: 560px) and (orientation: landscape) {
+  .experience-stage-wrapper {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 20px 14px 20px;
+    gap: 20px;
+  }
+
+  .romantic-scene-left {
+    width: 42%;
+    height: 86vh;
+    max-width: 320px;
+    margin: 0;
+  }
+
+  .universe-circle-stage {
+    width: min(86vh, 48vw);
+    height: min(86vh, 48vw);
+    margin: 0;
+  }
+
+  .top-controls-bar {
+    top: 6px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .bottom-scroll-guide {
+    display: none;
+  }
+}

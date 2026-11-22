@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>100 MANERAS DE DECIR TE EXTRAÑO</title>
+  <meta name="description"
+    content="Una experiencia web romántica, cinematográfica e inmersiva donde 100 maneras de decir te extraño giran en un universo interactivo.">
+
+  <!-- Hojas de Estilo del Proyecto (con control de versiones para evitar caché del navegador) -->
+  <link rel="stylesheet" href="css/style.css?v=20261121_clean_v14">
+  <link rel="stylesheet" href="css/effects.css?v=20261121_clean_v14">
+  <link rel="stylesheet" href="css/responsive.css?v=20261121_clean_v14">
+
+  <!-- Reglas defensivas para suprimir de inmediato cualquier destello, haz o rayo de luz en el círculo grande y esquinas -->
+  <style>
+    .corner-disco-lights-container,
+    .disco-corner,
+    .disco-lens-flare,
+    .disco-light-beam,
+    .beam-tl-primary,
+    .beam-tl-secondary,
+    .beam-tr-primary,
+    .beam-tr-secondary,
+    .beam-bl-primary,
+    .beam-br-primary,
+    .flare-pink,
+    .flare-purple,
+    .flare-cyan-rose,
+    .flare-gold,
+    .radial-beam-ray,
+    .outer-sparkle-star,
+    #outer-circle-sparkles-group,
+    #outer-circle-flash,
+    #outer-circle-draw-point,
+    #outer-circle-halo,
+    #outer-circle-corona,
+    #outer-circle-inner-ring,
+    .club-smoke-layer,
+    .floating-messages-container,
+    .purple-particles-aura {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  </style>
+
+  <!-- Favicon simbólico -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+</head>
+
+<body>
+
+  <!-- Espaciador virtual de scroll para GSAP ScrollTrigger -->
+  <div class="virtual-scroll-spacer" aria-hidden="true"></div>
+
+  <!-- Viewport Principal de la Experiencia -->
+  <main id="app-viewport">
+
+    <!-- Capa de Fondo Cósmico -->
+    <div class="cosmic-background-layer" aria-hidden="true">
+      <img src="assets/backgrounds/cosmic_nebula.webp" alt="Universo Cósmico Romántico" class="cosmic-nebula-image">
+    </div>
+
+    <!-- Canvas para Partículas Cósmicas, Estrellas y Corazones 3D -->
+    <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+    <!-- Piso Reflectante tipo Espejo Lacado Oscuro -->
+    <div class="reflective-floor" aria-hidden="true"></div>
+
+    <!-- Escena Principal Cinematográfica -->
+    <div class="experience-stage-wrapper">
+
+      <!-- ============================================================
+           SECCIÓN IZQUIERDA: PAREJA, OSO, ROSAS Y ARCO NEÓN
+           ============================================================ -->
+      <section class="romantic-scene-left" aria-label="Escena de la Pareja Romántica">
+
+        <!-- Arco de Corazón Neón Luminoso Doble con Imagen de la Pareja Incorporada -->
+        <div class="neon-heart-arch-container" aria-label="Corazón neón romántico">
+          <svg viewBox="0 0 500 500">
+            <defs>
+              <linearGradient id="neonHeartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff2a7a" />
+                <stop offset="50%" stop-color="#ff758c" />
+                <stop offset="100%" stop-color="#a855f7" />
+              </linearGradient>
+
+              <!-- Gradiente diagonal para el brillo / sheen interactivo al pasar el mouse -->
+              <linearGradient id="diagonalShineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+                <stop offset="35%" stop-color="#ffffff" stop-opacity="0.1" />
+                <stop offset="50%" stop-color="#ffffff" stop-opacity="0.85" />
+                <stop offset="65%" stop-color="#ffffff" stop-opacity="0.1" />
+                <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+              </linearGradient>
+
+              <filter id="heartPointGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+
+              <!-- Máscara de recorte estricta con el contorno exacto del corazón neón -->
+              <clipPath id="coupleHeartClip">
+                <path d="M 250, 430 C 130, 330 30, 240 30, 140 C 30, 60 90, 20 160, 20 C 205, 20 238, 45 250, 75 C 262, 45 295, 20 340, 20 C 410, 20 470, 60 470, 140 C 470, 240 370, 330 250, 430 Z" />
+              </clipPath>
+            </defs>
+
+            <!-- IMAGEN DE LA PAREJA DENTRO DEL CORAZÓN (Aparece únicamente cuando se forma el corazón) -->
+            <g id="couple-heart-container" clip-path="url(#coupleHeartClip)" opacity="0">
+              <!-- Fondo 100% transparente para que el universo cósmico se aprecie detrás de la pareja -->
+              <path d="M 250, 430 C 130, 330 30, 240 30, 140 C 30, 60 90, 20 160, 20 C 205, 20 238, 45 250, 75 C 262, 45 295, 20 340, 20 C 410, 20 470, 60 470, 140 C 470, 240 370, 330 250, 430 Z" fill="none" />
+              
+              <!-- Imagen que cubre por completo el interior del corazón y los lados de abajo sin salirse (posicionada más abajo en el contenedor) -->
+              <image id="heart-couple-image" href="assets/couple/couple.webp" x="15" y="48" width="470" height="430" preserveAspectRatio="xMidYMid slice" />
+
+              <!-- Rayo de brillo reflectante interactivo que cruza al pasar el mouse -->
+              <rect id="heart-shine-ray" x="-450" y="0" width="380" height="500" fill="url(#diagonalShineGrad)" opacity="0" transform="skewX(-25)" pointer-events="none" />
+            </g>
+
+            <!-- Contorno Exterior Neón -->
+            <path id="neonHeartPath" class="neon-heart-arch"
+              d="M 250, 430 C 130, 330 30, 240 30, 140 C 30, 60 90, 20 160, 20 C 205, 20 238, 45 250, 75 C 262, 45 295, 20 340, 20 C 410, 20 470, 60 470, 140 C 470, 240 370, 330 250, 430 Z" />
+            <!-- Contorno Interior Resplandeciente -->
+            <path id="neonHeartPathInner" class="neon-heart-arch-inner"
+              d="M 250, 415 C 140, 320 45, 235 45, 140 C 45, 70 100, 35 160, 35 C 200, 35 235, 58 250, 85 C 265, 58 300, 35 340, 35 C 400, 35 455, 70 455, 140 C 455, 235 360, 320 250, 415 Z" />
+            <!-- Punto luminoso que acompaña el trazado del corazón -->
+            <circle id="heart-draw-point" cx="250" cy="430" r="7" fill="#ffffff" filter="url(#heartPointGlow)"
+              opacity="0" />
+            <!-- Destello brillante al completar el corazón -->
+            <circle id="heart-finish-flash" cx="250" cy="430" r="16" fill="#ffffff" filter="url(#heartPointGlow)"
+              opacity="0" />
+          </svg>
+        </div>
+
+        <!-- Grupo de Primer Plano: Oso de Peluche, Rosas, Regalos y Vela amontonados en el medio con efecto realista -->
+        <div class="foreground-elements-group" opacity="0">
+          <!-- Sombra de contacto 3D realista en el suelo -->
+          <div class="realistic-ground-shadow" aria-hidden="true"></div>
+
+          <!-- Ramo de Rosas Rojas y Cajas de Regalos con Lazo Rojo y Vela -->
+          <img src="assets/roses/roses_and_gifts.webp" alt="Ramo de rosas rojas y regalos románticos"
+            class="scene-roses-and-gifts">
+
+          <!-- Oso de Peluche con Corazón Rojo Brillante amontonado abrazando el centro -->
+          <img src="assets/teddy/teddy_bear.webp" alt="Oso de peluche con corazón rojo brillante"
+            class="scene-teddy-bear">
+        </div>
+
+        <!-- Corazón de Cristal Flotante 3D -->
+        <img src="assets/hearts/crystal_heart.webp" alt="Corazón tridimensional brillante"
+          class="floating-crystal-heart-decor" aria-hidden="true">
+
+      </section>
+
+      <!-- ============================================================
+           SECCIÓN DERECHA: UNIVERSO CIRCULAR Y DIAL DE LAS 100 FRASES
+           ============================================================ -->
+      <section class="universe-circle-stage" aria-label="Universo Circular de Frases">
+
+        <!-- Anillos Geométricos SVG para el efecto final del Círculo Exterior -->
+        <svg class="orbital-svg-rings" viewBox="0 0 700 700" aria-hidden="true">
+          <defs>
+            <linearGradient id="neonPinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff2a7a" />
+              <stop offset="50%" stop-color="#ff758c" />
+              <stop offset="100%" stop-color="#a855f7" />
+            </linearGradient>
+
+            <linearGradient id="outerOrbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff2a7a" stop-opacity="0.95" />
+              <stop offset="50%" stop-color="#ffffff" stop-opacity="1" />
+              <stop offset="100%" stop-color="#a855f7" stop-opacity="0.95" />
+            </linearGradient>
+
+            <!-- Gradiente de fondo de alto contraste cósmico oscuro aterciopelado para que los textos blancos resalten al 100% -->
+            <radialGradient id="encapsulatedDiscGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#08010f" stop-opacity="0.96" />
+              <stop offset="40%" stop-color="#10021b" stop-opacity="0.97" />
+              <stop offset="78%" stop-color="#180426" stop-opacity="0.98" />
+              <stop offset="100%" stop-color="#240533" stop-opacity="0.99" />
+            </radialGradient>
+
+            <filter id="pointGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+
+            <filter id="superStarGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- CÍRCULO EXTERIOR: ENCAPSULAMIENTO LIMPIO QUE ENGLOBA LAS 100 FRASES AL TERMINAR (R=345, Inicio a las 12 en punto) -->
+          <!-- 1. Fondo de contraste terciopelo cósmico que sella el universo de las frases para máxima legibilidad del texto blanco -->
+          <circle id="outer-circle-disc-backdrop" cx="350" cy="350" r="344" fill="url(#encapsulatedDiscGrad)" opacity="0" style="display: none;" />
+
+          <!-- 2. Trazado circular perimetral continuo y elegante (R=345, Centro 350,350 -> Inicio en 350,5 a las 12 en punto) -->
+          <path id="outer-circle-draw-path" d="M 350, 5 A 345 345 0 1 1 349.99, 5 Z" fill="none"
+            stroke="url(#outerOrbitGrad)" stroke-width="3" stroke-linecap="round" opacity="0" style="display: none;" />
+        </svg>
+
+        <!-- Anillo Giratorio Dinámico de las 100 Frases (Comenzando de la mitad a la derecha a las 12 en punto) -->
+        <div id="orbital-phrases-track" role="list" aria-label="100 maneras de decir te extraño">
+          <!-- Los 100 nodos radiales se inyectan y posicionan matemáticamente -->
+        </div>
+
+        <!-- CÍRCULO 1: SANTUARIO CENTRAL CON LA COMPOSICIÓN EXACTA -->
+        <div class="center-sanctuary-circle" role="region" aria-live="polite" aria-atomic="true">
+
+          <!-- 1. Ícono de Corazón en la parte superior -->
+          <div class="central-item central-item-heart center-beating-heart-wrapper">
+            <span class="wing-flourish left" aria-hidden="true"></span>
+            <span class="center-beating-heart" title="Latido de amor">❤️</span>
+            <span class="wing-flourish right" aria-hidden="true"></span>
+          </div>
+
+          <!-- 2. I MISS YOU -->
+          <h1 class="central-item central-item-title central-main-title">I MISS YOU</h1>
+
+          <!-- 3. 100 WAYS TO SAY IT -->
+          <div class="central-item central-item-subhead central-ways-subhead">100 WAYS TO SAY IT</div>
+
+          <!-- Segunda parte de cada mensaje (se revela después del borrado con el contador) -->
+          <div class="central-item central-item-phrase central-phrase-quote" id="central-phrase-quote"></div>
+
+          <!-- Contador: 01 / 100 (Aparece después junto con la segunda parte del mensaje) -->
+          <div class="central-item central-item-counter central-quote-counter">01 / 100</div>
+        </div>
+      </section>
+
+      <!-- Guía Inferior de Scroll: Desliza para descubrir más -->
+      <div class="bottom-scroll-guide" role="button" aria-label="Deslizar para avanzar">
+        <div class="mouse-indicator-icon">
+          <span class="mouse-wheel-dot"></span>
+        </div>
+        <span class="scroll-guide-label">Desliza para las 100 maneras de amar</span>
+        <span class="scroll-chevron-down" aria-hidden="true">⌄</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================
+       SCRIPTS: GSAP, SCROLLTRIGGER Y LÓGICA MODULAR
+       ============================================================ -->
+  <!-- Librería GSAP local -->
+  <script src="js/libs/gsap.min.js"></script>
+  <script src="js/libs/ScrollTrigger.min.js"></script>
+
+  <!-- Scripts del Proyecto (con control de versiones para evitar caché en navegadores) -->
+  <script src="js/messages.js?v=20261121_clean_v14"></script>
+  <script src="js/circularText.js?v=20261121_clean_v14"></script>
+  <script src="js/animations.js?v=20261121_clean_v14"></script>
+  <script src="js/scrollController.js?v=20261121_clean_v14"></script>
+  <script src="js/main.js?v=20261121_clean_v14"></script>
+
+</body>
+
+</html>
